@@ -1,0 +1,90 @@
+#! /c/iverilog/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision - 12;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_009D2B78 .scope module, "two_one_mux_tb" "two_one_mux_tb" 2 3;
+ .timescale -9 -12;
+v00AC3AC0_0 .var "exp", 0 0;
+v00AC3B18_0 .var/i "i", 31 0;
+v00AC3B70_0 .var "i0", 0 0;
+v009F8EC8_0 .var "i1", 0 0;
+v009F8F20_0 .var "s0", 0 0;
+v009F8F78_0 .net "y", 0 0, L_009F90B0; 1 drivers
+S_009D3480 .scope module, "uut" "two_one_mux" 2 8, 3 1, S_009D2B78;
+ .timescale 0 0;
+L_00AC3BC8 .functor NOT 1, v009F8F20_0, C4<0>, C4<0>, C4<0>;
+L_00AC1790 .functor AND 1, L_00AC3BC8, v00AC3B70_0, C4<1>, C4<1>;
+L_009F9040 .functor AND 1, v009F8F20_0, v009F8EC8_0, C4<1>, C4<1>;
+L_009F90B0 .functor OR 1, L_00AC1790, L_009F9040, C4<0>, C4<0>;
+v00AC1688_0 .net *"_s0", 0 0, L_00AC3BC8; 1 drivers
+v00AC16E0_0 .net *"_s2", 0 0, L_00AC1790; 1 drivers
+v00AC1738_0 .net *"_s4", 0 0, L_009F9040; 1 drivers
+v00ACEEA0_0 .net "i0", 0 0, v00AC3B70_0; 1 drivers
+v00ACEEF8_0 .net "i1", 0 0, v009F8EC8_0; 1 drivers
+v00ACEF50_0 .net "s0", 0 0, v009F8F20_0; 1 drivers
+v00AC3A68_0 .alias "y", 0 0, v009F8F78_0;
+    .scope S_009D2B78;
+T_0 ;
+    %vpi_call 2 14 "$dumpfile", "mux.vcd";
+    %vpi_call 2 15 "$dumpvars", 1'sb0, S_009D2B78;
+    %vpi_call 2 17 "$display", " time | i0 i1 s0 | y  exp | pass?";
+    %vpi_call 2 18 "$display", "-----------------------------------";
+    %set/v v00AC3B18_0, 0, 32;
+T_0.0 ;
+    %load/v 8, v00AC3B18_0, 32;
+   %cmpi/s 8, 8, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/v 8, v00AC3B18_0, 3; Only need 3 of 32 bits
+; Save base=8 wid=3 in lookaside.
+    %set/v v009F8F20_0, 8, 1;
+    %set/v v009F8EC8_0, 9, 1;
+    %set/v v00AC3B70_0, 10, 1;
+    %delay 1000, 0;
+    %load/v 8, v009F8F20_0, 1;
+    %jmp/0  T_0.2, 8;
+    %load/v 9, v009F8EC8_0, 1;
+    %jmp/1  T_0.4, 8;
+T_0.2 ; End of true expr.
+    %load/v 10, v00AC3B70_0, 1;
+    %jmp/0  T_0.3, 8;
+ ; End of false expr.
+    %blend  9, 10, 1; Condition unknown.
+    %jmp  T_0.4;
+T_0.3 ;
+    %mov 9, 10, 1; Return false value
+T_0.4 ;
+    %set/v v00AC3AC0_0, 9, 1;
+    %load/v 8, v009F8F78_0, 1;
+    %load/v 9, v00AC3AC0_0, 1;
+    %cmp/u 8, 9, 1;
+    %mov 8, 6, 1;
+    %jmp/0  T_0.5, 8;
+    %movi 9, 1346458451, 32;
+    %jmp/1  T_0.7, 8;
+T_0.5 ; End of true expr.
+    %movi 41, 1178683724, 32;
+    %jmp/0  T_0.6, 8;
+ ; End of false expr.
+    %blend  9, 41, 32; Condition unknown.
+    %jmp  T_0.7;
+T_0.6 ;
+    %mov 9, 41, 32; Return false value
+T_0.7 ;
+    %vpi_call 2 25 "$display", "%4t |  %b  %b  %b | %b   %b  | %s", $time, v00AC3B70_0, v009F8EC8_0, v009F8F20_0, v009F8F78_0, v00AC3AC0_0, T<9,32,u>;
+    %delay 9000, 0;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 8, v00AC3B18_0, 32;
+    %set/v v00AC3B18_0, 8, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %vpi_call 2 31 "$finish";
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "mux_tb.v";
+    "mux.v";

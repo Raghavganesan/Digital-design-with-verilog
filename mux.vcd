@@ -1,0 +1,85 @@
+$date
+	Fri Oct 03 08:49:51 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module two_one_mux_tb $end
+$var wire 1 ! y $end
+$var reg 1 " exp $end
+$var integer 32 # i [31:0] $end
+$var reg 1 $ i0 $end
+$var reg 1 % i1 $end
+$var reg 1 & s0 $end
+$scope module uut $end
+$var wire 1 ' i0 $end
+$var wire 1 ( i1 $end
+$var wire 1 ) s0 $end
+$var wire 1 ! y $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0)
+0(
+0'
+0&
+0%
+0$
+b0 #
+x"
+0!
+$end
+#1000
+0"
+#10000
+1&
+1)
+b1 #
+#20000
+1%
+1(
+0&
+0)
+b10 #
+#30000
+1!
+1&
+1)
+b11 #
+#31000
+1"
+#40000
+1$
+1'
+0%
+0(
+0&
+0)
+b100 #
+#50000
+0!
+1&
+1)
+b101 #
+#51000
+0"
+#60000
+1!
+1%
+1(
+0&
+0)
+b110 #
+#61000
+1"
+#70000
+1&
+1)
+b111 #
+#80000
+b1000 #
